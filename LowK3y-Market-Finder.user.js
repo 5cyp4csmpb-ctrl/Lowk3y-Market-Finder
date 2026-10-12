@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LowK3y Market Opportunity Finder
 // @namespace    lowk3y-industries-market
-// @version      0.2.0
+// @version      0.2.1
 // @description  Read-only Torn market watchlist with illustrative fee-adjusted comparisons. Manual refresh only.
 // @match        https://www.torn.com/*
 // @match        https://torn.com/*
@@ -28,7 +28,7 @@
   [hidden]{display:none!important}h3{margin:0;color:#f6ce69}p{font-size:12px;line-height:1.5;color:#c2cbd7}input{background:#09121b;color:white;border:1px solid #667585;border-radius:7px;padding:8px;max-width:100%;box-sizing:border-box}
   #key{width:100%}.row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:9px 0}#id{width:90px}#fee{width:60px}.item{padding:9px 0;border-top:1px solid #394756}.bad{color:#ffaaa8}.good{color:#9ae3af}a{color:#a9d3ff}
   .tabs{display:flex;gap:6px;margin:9px 0}.tabs button[aria-pressed=true]{border-color:#f6ce69;color:#f6ce69}.section{display:block}.section[hidden]{display:none!important}.muted{font-size:11px;color:#b4c1ce}.field{display:flex;flex-direction:column;gap:4px;flex:1;min-width:90px}.field input{width:100%}.summary{padding:9px;border:1px solid #47586b;border-radius:9px;margin:8px 0}#overseas select{background:#09121b;color:white;border:1px solid #667585;border-radius:7px;padding:8px;max-width:100%}\n  </style><button id="open">💰 Market</button><section id="panel" hidden>
-  <h3>LowK3y Market Finder v0.2.0</h3><div class="tabs"><button id="cityTab" aria-pressed="true">City Market</button><button id="abroadTab" aria-pressed="false">Overseas</button></div><div id="city" class="section"><p>Read-only beta • up to ten items • manual refresh</p>
+  <h3>LowK3y Market Finder v0.2.1</h3><div class="tabs"><button id="cityTab" aria-pressed="true">City Market</button><button id="abroadTab" aria-pressed="false">Overseas</button></div><div id="city" class="section"><p>Read-only beta • up to ten items • manual refresh</p>
   <label>Public API key (not saved)</label><input id="key" type="password" autocomplete="off" placeholder="Enter your Public API key">
   <div class="row"><label>Assumed fee % <input id="fee" type="number" min="0" max="99" step="0.5" value="5"></label><button id="scan">Refresh</button></div>
   <div class="row"><input id="id" type="number" min="1" placeholder="Item ID"><button id="add">Add item</button><button id="reset">Reset</button></div>
@@ -67,7 +67,6 @@
     }catch(e){out.textContent='Unable to compare: '+String(e.message||e);}
     finally{foreignBusy=false;$('checkForeign').disabled=false;}
   };
-  let busy=false,last=0;
   $('scan').onclick=async()=>{
     if(busy)return;
     const key=$('key').value.trim(),fee=Number($('fee').value)/100;
